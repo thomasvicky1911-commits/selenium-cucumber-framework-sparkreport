@@ -13,8 +13,8 @@ public class Hooks {
     @Before
     public void setUp(Scenario scenario) {
 
-        String browser = System.getProperty("browser", "chrome");
-        String env = System.getProperty("env", "qc");
+        String browser = System.getProperty("browser", "edge");
+        String env = System.getProperty("env", "uat");
 
         EnvironmentManager.loadEnvironment(env);
         DriverFactory.initDriver(browser);

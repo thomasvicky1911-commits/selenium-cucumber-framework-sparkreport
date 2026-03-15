@@ -1,6 +1,5 @@
 package driver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,17 +11,22 @@ public class DriverFactory {
 
     public static void initDriver(String browser) {
 
+        String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
+
         if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
+            System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
             driver.set(new ChromeDriver());
         }
         else if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
+            System.setProperty("webdriver.edge.driver", driverPath + "msedgedriver.exe");
             driver.set(new EdgeDriver());
         }
         else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
+            System.setProperty("webdriver.gecko.driver", driverPath + "geckodriver.exe");
             driver.set(new FirefoxDriver());
+        }
+        else {
+            throw new RuntimeException("Browser not supported: " + browser);
         }
 
         getDriver().manage().window().maximize();
@@ -33,7 +37,9 @@ public class DriverFactory {
     }
 
     public static void quitDriver() {
-        driver.get().quit();
-        driver.remove();
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
     }
 }
