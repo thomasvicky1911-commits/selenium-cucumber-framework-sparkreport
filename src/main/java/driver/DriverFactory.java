@@ -2,8 +2,11 @@ package driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class DriverFactory {
 
@@ -14,16 +17,23 @@ public class DriverFactory {
         String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
 
         if (browser.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
-            driver.set(new ChromeDriver());
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--start-maximized");
+            driver.set(new ChromeDriver(chromeOptions));
         }
         else if (browser.equalsIgnoreCase("edge")) {
-            System.setProperty("webdriver.edge.driver", driverPath + "msedgedriver.exe");
-            driver.set(new EdgeDriver());
+            EdgeOptions edgeOptions = new EdgeOptions();
+            edgeOptions.addArguments("--start-maximized");
+            System.setProperty(
+                    "webdriver.edge.driver",
+                    System.getProperty("user.dir") + "/src/test/resources/drivers/msedgedriver.exe"
+            );
+            driver.set(new EdgeDriver(edgeOptions));
         }
         else if (browser.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.gecko.driver", driverPath + "geckodriver.exe");
-            driver.set(new FirefoxDriver());
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.addArguments("--start-maximized");
+            driver.set(new FirefoxDriver(firefoxOptions));
         }
         else {
             throw new RuntimeException("Browser not supported: " + browser);

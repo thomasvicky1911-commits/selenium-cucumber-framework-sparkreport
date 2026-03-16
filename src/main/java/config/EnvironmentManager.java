@@ -14,14 +14,15 @@ public class EnvironmentManager {
 
         try (FileInputStream fis = new FileInputStream(filePath)) {
             properties.load(fis);
+            ConfigReader.setProperties(properties);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load environment properties: " + env, e);
         }
     }
 
-    public static String getProperty(String key) {
-        return properties.getProperty(key);
-    }
+//    public static String getProperty(String key) {
+//        return properties.getProperty(key);
+//    }
 
     public static String getUrl() {
         return properties.getProperty("base.url");

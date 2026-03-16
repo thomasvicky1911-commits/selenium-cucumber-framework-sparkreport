@@ -7,6 +7,9 @@ public class ConfigReader {
     private static ThreadLocal<Properties> threadLocalProps = new ThreadLocal<>();
 
     static void setProperties(Properties properties) {
+        if (properties == null) {
+            throw new RuntimeException("Properties cannot be null");
+        }
         threadLocalProps.set(properties);
     }
 
@@ -19,10 +22,10 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
-        return getProperties().getProperty(key);
-    }
-
-    public static String getBaseUrl() {
-        return get("base.url");
+        String value = getProperties().getProperty(key);
+        if (value == null) {
+            throw new RuntimeException("Property '" + key + "' not found in environment properties file");
+        }
+        return value;
     }
 }

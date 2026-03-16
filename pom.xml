@@ -44,18 +44,11 @@
         </dependency>
 
         <!-- WebDriver Manager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>6.1.0</version>
-        </dependency>
-
-        <!-- Reporting -->
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>5.1.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.bonigarcia</groupId>-->
+<!--            <artifactId>webdrivermanager</artifactId>-->
+<!--            <version>6.1.0</version>-->
+<!--        </dependency>-->
 
         <!-- Extent Reports -->
         <dependency>

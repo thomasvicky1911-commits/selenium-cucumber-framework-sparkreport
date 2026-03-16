@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import config.EnvironmentManager;
 import driver.DriverFactory;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -26,7 +27,16 @@ public class LoginSteps {
 
     @When("user logs in with valid credentials")
     public void login() {
-        loginActions.login("Admin", "admin123");
+        String username = ConfigReader.get("username");
+        String password = ConfigReader.get("password");
+        loginActions.login(username, password);
+    }
+
+    @When("user logs in with invalid credentials")
+    public void userLogsInWithInvalidCredentials() {
+        String username = ConfigReader.get("username");
+        String invalidpassword = ConfigReader.get("invalidpassword");
+        loginActions.login(username, invalidpassword);
     }
 
     @Then("user should be logged in successfully")
